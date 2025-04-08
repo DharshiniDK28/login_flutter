@@ -140,6 +140,7 @@ class RegisterScreen extends StatelessWidget {
                         const SnackBar(
                           content: Text('Registration Successful'),
                           backgroundColor: Color.fromARGB(255, 31, 221, 50),
+                          duration: Duration(seconds: 2),
                         ),
                       );
                       context.go('/products');
@@ -148,11 +149,13 @@ class RegisterScreen extends StatelessWidget {
                         SnackBar(
                           content: Text((state.formStatus as SubmissionFailed).exception.toString()),
                           backgroundColor: Colors.red,
+                          duration: Duration(seconds: 2),
                         ),
                       );
-                    } else if (state.formStatus is FormEditing) {
-                      ScaffoldMessenger.of(context).clearSnackBars();
-                    }
+                    } 
+                    // else if (state.formStatus is FormEditing) {
+                    //   ScaffoldMessenger.of(context).clearSnackBars();
+                    // }
                   },
                   builder: (context, state) {
                     return SizedBox(

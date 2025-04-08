@@ -99,10 +99,11 @@ class LoginScreen extends StatelessWidget {
                     );
                   },
                 ),
+
                 const SizedBox(height: 40),
 
                 BlocConsumer<LoginBloc, LoginState>(
-                  listener: (context, state) {
+                  listener: (context, state) async {
                     if (state.formStatus is SubmissionSuccess) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -111,16 +112,21 @@ class LoginScreen extends StatelessWidget {
                           duration: Duration(seconds: 2),
                         ),
                       );
-                      context.go('/register');
+
+                      await Future.delayed(const Duration(seconds: 3));
+                      context.go('/register'); 
                     } else if (state.formStatus is SubmissionFailed) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text((state.formStatus as SubmissionFailed).exception.toString()),
                           backgroundColor: Colors.red,
-                          duration: const Duration(seconds: 3),
+                          duration: const Duration(seconds: 2),
                         ),
                       );
                     }
+                    // else if (state.formStatus is FormEditing) {
+                    //   ScaffoldMessenger.of(context).clearSnackBars();
+                    // }
                   },
                   builder: (context, state) {
                     return SizedBox(
@@ -131,11 +137,9 @@ class LoginScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
-                        onPressed: (!state.isValidUsername || !state.isValidPassword || state.formStatus is FormSubmitting)
-                            ? null
-                            : () {
-                                context.read<LoginBloc>().add(LoginSubmitted());
-                              },
+                        onPressed: () {
+                          context.read<LoginBloc>().add(LoginSubmitted());
+                        },
                         child: state.formStatus is FormSubmitting
                             ? const CircularProgressIndicator(color: Colors.white)
                             : const Text('Sign in', style: TextStyle(fontSize: 18, color: Colors.white)),

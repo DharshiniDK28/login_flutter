@@ -20,6 +20,8 @@ class ProductScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Product Details"),
+          backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,
           actions: [
             IconButton(
               icon: const Icon(Icons.logout),
