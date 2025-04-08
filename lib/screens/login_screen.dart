@@ -99,7 +99,6 @@ class LoginScreen extends StatelessWidget {
                     );
                   },
                 ),
-
                 const SizedBox(height: 40),
 
                 BlocConsumer<LoginBloc, LoginState>(
@@ -109,6 +108,7 @@ class LoginScreen extends StatelessWidget {
                         const SnackBar(
                           content: Text('Login Successful'),
                           backgroundColor: Color.fromARGB(255, 31, 221, 50),
+                          duration: Duration(seconds: 2),
                         ),
                       );
                       context.go('/register');
@@ -117,10 +117,9 @@ class LoginScreen extends StatelessWidget {
                         SnackBar(
                           content: Text((state.formStatus as SubmissionFailed).exception.toString()),
                           backgroundColor: Colors.red,
+                          duration: const Duration(seconds: 3),
                         ),
                       );
-                    } else if (state.formStatus is FormEditing) {
-                      ScaffoldMessenger.of(context).clearSnackBars();
                     }
                   },
                   builder: (context, state) {

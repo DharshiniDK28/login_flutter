@@ -1,29 +1,27 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter_application_7/bloc/datafetch_bloc/datafetch_status.dart';
 import 'package:flutter_application_7/data/models/product_model.dart';
+
 
 class ProductState extends Equatable {
   final List<Product> products;
-  final bool isLoading;
-  final String? errorMessage;
+  final DataFetchStatus fetchStatus;
 
   const ProductState({
     this.products = const [],
-    this.isLoading = false,
-    this.errorMessage,
+    this.fetchStatus = const InitialFetchStatus(),
   });
 
   ProductState copyWith({
     List<Product>? products,
-    bool? isLoading,
-    String? errorMessage,
+    DataFetchStatus? fetchStatus,
   }) {
     return ProductState(
       products: products ?? this.products,
-      isLoading: isLoading ?? this.isLoading,
-      errorMessage: errorMessage,
+      fetchStatus: fetchStatus ?? this.fetchStatus,
     );
   }
 
   @override
-  List<Object?> get props => [products, isLoading, errorMessage];
+  List<Object?> get props => [products, fetchStatus];
 }
